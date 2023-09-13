@@ -1,5 +1,6 @@
 'use client'
 
+import { firebase } from "@/constants/firebase";
 import { kakao } from "@/constants/kakao";
 import axios from "axios";
 import { useRouter } from "next/router"
@@ -41,9 +42,47 @@ export const useAuth = () => {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
       }
     }).then((res) => {
+      const id = res.data.id;
       const email = res.data.kakao_account.email;
-      console.log(email);
+      signUpFirebaseAuth(email, id);
+    })
+  }
 
+  const signUpFirebaseAuth = async(email:string, password: string) => {
+    await axios({
+      method: 'post',
+      url: `${firebase.SIGN_UP_API_URL}?key=${firebase.WEB_API_KEY}`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        email,
+        password,
+        returnSecureToken: true,
+      }
+    }).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      if(err.response.data.error.message === "EMAIL_EXISTS") {
+        signInFirebaseAuth(email, password);
+      }
+    })
+  }
+
+  const signInFirebaseAuth = async(email:string, password: string) => {
+    await axios({
+      method: 'post',
+      url: `${firebase.SIGN_IN_API_URL}?key=${firebase.WEB_API_KEY}`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        email,
+        password,
+        returnSecureToken: true,
+      }
+    }).then((res) => {
+      console.log(res);
     })
   }
 
