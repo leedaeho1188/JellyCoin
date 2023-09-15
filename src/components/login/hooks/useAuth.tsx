@@ -5,6 +5,7 @@ import { kakao } from "@/constants/kakao";
 import axios from "axios";
 import { useRouter } from "next/router"
 import { useEffect } from "react";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
 
@@ -12,7 +13,6 @@ export const useAuth = () => {
   const {query} = useRouter();
 
   useEffect(() => {
-    console.log(query);
     if(!query.code) return;
     getKakaoToken(query.code as string);
 
@@ -44,46 +44,39 @@ export const useAuth = () => {
     }).then((res) => {
       const id = res.data.id;
       const email = res.data.kakao_account.email;
-      signUpFirebaseAuth(email, id);
+      signInFirebaseAuth(email, id);
     })
   }
 
   const signUpFirebaseAuth = async(email:string, password: string) => {
-    await axios({
-      method: 'post',
-      url: `${firebase.SIGN_UP_API_URL}?key=${firebase.WEB_API_KEY}`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: {
-        email,
-        password,
-        returnSecureToken: true,
-      }
-    }).then((res) => {
-      console.log(res);
-    }).catch((err) => {
-      if(err.response.data.error.message === "EMAIL_EXISTS") {
-        signInFirebaseAuth(email, password);
-      }
-    })
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      })
   }
 
   const signInFirebaseAuth = async(email:string, password: string) => {
-    await axios({
-      method: 'post',
-      url: `${firebase.SIGN_IN_API_URL}?key=${firebase.WEB_API_KEY}`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: {
-        email,
-        password,
-        returnSecureToken: true,
-      }
-    }).then((res) => {
-      console.log(res);
-    })
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        const errorMessage = error.message;
+        if(errorMessage === 'Firebase: Error (auth/user-not-found).'){
+          signUpFirebaseAuth(email, password);
+        }
+        // console.log(errorCode, errorMessage);
+      })
   }
 
   return {
