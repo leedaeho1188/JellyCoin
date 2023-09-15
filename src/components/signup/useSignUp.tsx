@@ -2,8 +2,10 @@ import { convertHeicToJpg } from "@/utils/convertHeicToJpg";
 import { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { uploadImage } from "@/services/firebase/storage";
+import { postUser } from "@/services/firebase/firestore";
 
-interface ImageFile {
+export interface ImageFile {
   file: File;
   objectUrl: string;
 }
@@ -25,44 +27,15 @@ export const useSignUp = () => {
    }
   }
   
-  const uploadImage = async () => {
-    if(!profileImage) return;
-    const storage = getStorage();
-    const storageRef = ref(storage, `images/profile/${profileImage.file.name}`);
-    await uploadBytes(storageRef, profileImage.file)
-      .then((snapshot) => {
-        console.log(snapshot);
-        getDownloadURL(snapshot.ref).then((url) => {
-          console.log('file url', url);
-          addUser(url);
-        })
-      })
-  }
-
-  const addUser = async (url:string | null) => {
-    const uid = localStorage.getItem('uid');
-    if(!uid) return;
-
-    const docData = {
-      name: 'test',
-      profileImage: url,
-      coin: 0,
-      createdAt: new Date(),
-      groupId: null,
-      authority: 'user',
-    }
-
-    const db = getFirestore();
-    await setDoc(doc(db, "users", uid), docData).then((res) => {
-      console.log(res);
-    })
-    
+  const onSignUp = () => {
+    if(profileImage) uploadImage(profileImage);
+    else postUser(null);
   }
 
   return {
     onChangeFiles,
     profileImage,
-    uploadImage
+    onSignUp
   }
 
 }

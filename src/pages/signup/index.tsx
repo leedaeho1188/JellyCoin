@@ -7,7 +7,7 @@ const SignUpPage = () => {
   const {
     onChangeFiles,
     profileImage,
-    uploadImage
+    onSignUp
   } = useSignUp();
 
 
@@ -30,7 +30,7 @@ const SignUpPage = () => {
         <input multiple={false}  accept=".jpg, .jpeg, .png, .heic" onChange={onChangeFiles} className="hidden" type='file' id='imageFile' name='imageFile' />
       </div>
 
-      <div className='cursor-pointer' onClick={uploadImage} > 이미지 저장 </div>
+      <div className='cursor-pointer' onClick={onSignUp} > 회원가입 </div>
     </div>
   )
 }
