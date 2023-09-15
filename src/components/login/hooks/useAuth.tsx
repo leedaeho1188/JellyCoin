@@ -10,7 +10,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 
 export const useAuth = () => {
-  const {query} = useRouter();
+  const {query, push} = useRouter();
 
   useEffect(() => {
     if(!query.code) return;
@@ -53,7 +53,8 @@ export const useAuth = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        localStorage.setItem('uid', user.uid);
+        push('/signup');
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -68,6 +69,7 @@ export const useAuth = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        localStorage.setItem('uid', user.uid);
       })
       .catch((error) => {
         console.error(error.message);

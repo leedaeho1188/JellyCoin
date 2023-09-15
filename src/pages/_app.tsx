@@ -7,6 +7,7 @@ import { getStorage } from "firebase/storage";
 import { useEffect } from "react";
 
 import '../styles/globals.css';
+import { getFirestore } from "firebase/firestore";
 
 
 
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     getAnalytics(app);
     getAuth(app);
     getStorage(app);
+    getFirestore(app);
   }, [])
 
   return (

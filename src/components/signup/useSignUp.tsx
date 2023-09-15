@@ -1,6 +1,7 @@
 import { convertHeicToJpg } from "@/utils/convertHeicToJpg";
 import { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 
 interface ImageFile {
   file: File;
@@ -33,8 +34,29 @@ export const useSignUp = () => {
         console.log(snapshot);
         getDownloadURL(snapshot.ref).then((url) => {
           console.log('file url', url);
+          addUser(url);
         })
       })
+  }
+
+  const addUser = async (url:string | null) => {
+    const uid = localStorage.getItem('uid');
+    if(!uid) return;
+
+    const docData = {
+      name: 'test',
+      profileImage: url,
+      coin: 0,
+      createdAt: new Date(),
+      groupId: null,
+      authority: 'user',
+    }
+
+    const db = getFirestore();
+    await setDoc(doc(db, "users", uid), docData).then((res) => {
+      console.log(res);
+    })
+    
   }
 
   return {
