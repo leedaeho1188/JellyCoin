@@ -13,6 +13,11 @@ export interface ImageFile {
 export const useSignUp = () => {
 
   const [profileImage, setProfileImage] = useState<ImageFile>();
+  const [name, setName] = useState<string>('');
+
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }
 
   const onChangeFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
    const file = e.target.files?.[0];
@@ -27,14 +32,16 @@ export const useSignUp = () => {
    }
   }
   
-  const onSignUp = () => {
-    if(profileImage) uploadImage(profileImage);
-    else postUser(null);
+  const onSignUp = async () => {
+    const url = profileImage ? await uploadImage(profileImage) : null;
+    postUser(name, url);
   }
 
   return {
     onChangeFiles,
     profileImage,
+    name,
+    onChangeName,
     onSignUp
   }
 

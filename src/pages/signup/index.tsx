@@ -1,28 +1,23 @@
 import { useSignUp } from "@/components/signup/useSignUp";
-import { convertHeicToJpg } from "@/utils/convertHeicToJpg";
-import { useState } from "react";
 
 const SignUpPage = () => {
 
   const {
     onChangeFiles,
     profileImage,
-    onSignUp
+    onSignUp,
+    name,
+    onChangeName
   } = useSignUp();
 
 
   return (
-    <div className="flex flex-col gap-4" >
-      <div>
-        <label htmlFor="name">Name</label>
-        <input className='border-solid border-2 border-sky-500' type="text" id="name" name="name" />
-      </div>
-
+    <div className="flex flex-col gap-8 px-3 py-3" >
       <div className="w-fit" >
         <label htmlFor='imageFile' >
           {profileImage 
             ? <img className='w-32 h-32' src={profileImage.objectUrl} />
-            : <div className='px-12 py-6 w-fit cursor-pointer border-dotted border-2 border-sky-500'>
+            : <div className='w-32 h-32 rounded flex justify-center items-center cursor-pointer border-dotted border-2 border-sky-500'>
                 Upload Image
               </div>
           }
@@ -30,7 +25,14 @@ const SignUpPage = () => {
         <input multiple={false}  accept=".jpg, .jpeg, .png, .heic" onChange={onChangeFiles} className="hidden" type='file' id='imageFile' name='imageFile' />
       </div>
 
-      <div className='cursor-pointer' onClick={onSignUp} > 회원가입 </div>
+      <div className="flex flex-col gap-1" >
+        <label className='text-sm' htmlFor="name">이름</label>
+        <input onChange={onChangeName} placeholder="이름을 입력해주세요." value={name} className='outline-none border-b-sky-500 border-b-2 border-solid text-lg px-1 py-1' type="text" id="name" name="name" />
+      </div>
+
+      <div className='cursor-pointer bg-sky-200 px-3 py-2 w-fit rounded self-end text-lg' onClick={onSignUp} > 
+        회원가입 
+      </div>
     </div>
   )
 }

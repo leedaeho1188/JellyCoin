@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 import '../styles/globals.css';
 import { getFirestore } from "firebase/firestore";
+import { Layout } from "@/components/common/layout";
 
 
 
@@ -23,7 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }

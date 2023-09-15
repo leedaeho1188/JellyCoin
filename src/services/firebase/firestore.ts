@@ -1,11 +1,11 @@
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 
-export const postUser = async (url:string | null) => {
+export const postUser = async (name:string, url:string | null) => {
   const uid = localStorage.getItem('uid');
   if(!uid) return;
 
   const docData = {
-    name: 'test',
+    name: name,
     profileImage: url,
     coin: 0,
     createdAt: new Date(),

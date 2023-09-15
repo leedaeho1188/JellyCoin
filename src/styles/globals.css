@@ -61,6 +61,7 @@ menu, nav, section, hgroup, article, header, aside, footer {
 
 html,
 body {
+  background-color: skyblue;
   margin: 0;
   padding: 0;
   overflow: hidden;
