@@ -13,16 +13,17 @@ const SignUpPage = () => {
 
   return (
     <div className="flex flex-col gap-8 px-3 py-3" >
-      <div className="w-fit" >
+      <div className="w-fit flex items-center gap-4" >
         <label htmlFor='imageFile' >
           {profileImage 
-            ? <img className='w-32 h-32' src={profileImage.objectUrl} />
+            ? <img className='w-32 h-32 cursor-pointer' src={profileImage.objectUrl} />
             : <div className='w-32 h-32 rounded flex justify-center items-center cursor-pointer border-dotted border-2 border-orange-300'>
                 Upload Image
               </div>
           }
         </label>
         <input multiple={false}  accept=".jpg, .jpeg, .png, .heic" onChange={onChangeFiles} className="hidden" type='file' id='imageFile' name='imageFile' />
+        <p>* 프로필 사진을 업로드해주세요</p>
       </div>
 
       <div className="flex flex-col gap-1" >

@@ -6,7 +6,7 @@ import CoinImage from '../../../public/images/coin.png'
 export const Header = () => {
 
   return (
-    <div className='w-full h-14 shadow ' >
+    <div className='w-full h-14 shadow absolute top-0 left-0' >
       <div className='flex justify-between items-center h-full px-3' >
         <div className='text-2xl font-bold' > 
           <a href='/' > 
