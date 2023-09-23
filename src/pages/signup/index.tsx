@@ -17,7 +17,7 @@ const SignUpPage = () => {
         <label htmlFor='imageFile' >
           {profileImage 
             ? <img className='w-32 h-32' src={profileImage.objectUrl} />
-            : <div className='w-32 h-32 rounded flex justify-center items-center cursor-pointer border-dotted border-2 border-sky-500'>
+            : <div className='w-32 h-32 rounded flex justify-center items-center cursor-pointer border-dotted border-2 border-orange-300'>
                 Upload Image
               </div>
           }
@@ -27,10 +27,10 @@ const SignUpPage = () => {
 
       <div className="flex flex-col gap-1" >
         <label className='text-sm' htmlFor="name">이름</label>
-        <input onChange={onChangeName} placeholder="이름을 입력해주세요." value={name} className='outline-none border-b-sky-500 border-b-2 border-solid text-lg px-1 py-1' type="text" id="name" name="name" />
+        <input onChange={onChangeName} placeholder="이름을 입력해주세요." value={name} className='outline-none border-b-orange-300 border-b-2 border-solid text-lg px-1 py-1' type="text" id="name" name="name" />
       </div>
 
-      <div className='cursor-pointer bg-sky-200 px-3 py-2 w-fit rounded self-end text-lg' onClick={onSignUp} > 
+      <div className='cursor-pointer bg-orange-200 px-3 py-2 w-fit rounded self-end text-lg' onClick={onSignUp} > 
         회원가입 
       </div>
     </div>

@@ -20,16 +20,16 @@ export const useSignUp = () => {
   }
 
   const onChangeFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-   const file = e.target.files?.[0];
+    const file = e.target.files?.[0];
 
-   if(file) {
-     const convertedFile = await convertHeicToJpg(file);
-     const image = {
-      file: convertedFile,
-      objectUrl: URL.createObjectURL(convertedFile)
-     }
-     setProfileImage(image);
-   }
+    if(file) {
+      const convertedFile = await convertHeicToJpg(file);
+      const image = {
+        file: convertedFile,
+        objectUrl: URL.createObjectURL(convertedFile)
+      }
+      setProfileImage(image);
+    }
   }
   
   const onSignUp = async () => {

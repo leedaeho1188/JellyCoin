@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 import '../styles/globals.css';
 import { getFirestore } from "firebase/firestore";
-import { Layout } from "@/components/common/layout";
+import { Layout } from "@/components/common/Layout";
 
 
 
