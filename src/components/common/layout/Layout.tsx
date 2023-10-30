@@ -8,7 +8,7 @@ export const Layout = ({ children }: {children: ReactNode}) => {
   return (
     <div className={classes['layout-container']}>
       <Header/>
-      <div className='pt-14 relative w-full h-full' >
+      <div className={classes['pageBody-container']} >
         {children}
       </div>
       <BottomNav/>
