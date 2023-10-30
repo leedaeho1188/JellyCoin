@@ -1,7 +1,7 @@
 
-import ProfileIcon from '../../../public/svg/profile.svg';
-import MarketIcon from '../../../public/svg/market.svg';
-import UsersIcon from '../../../public/svg/user_list.svg';
+import ProfileIcon from '../../../../public/svg/profile.svg';
+import MarketIcon from '../../../../public/svg/market.svg';
+import UsersIcon from '../../../../public/svg/user_list.svg';
 
 // bottom navigation bar
 // three buttons: market, users, profile

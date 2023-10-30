@@ -1,21 +1,18 @@
 import Image from "next/image";
-import CoinImage from '../../../public/images/coin.png'
+import CoinImage from '../../../../public/images/coin.png'
+import classes from './layout.module.scss'
+import { Button } from "@mui/material";
 
 
 
 export const Header = () => {
 
   return (
-    <div className='w-full h-14 shadow absolute top-0 left-0' >
-      <div className='flex justify-between items-center h-full px-3' >
+    <div className={classes['header-container']} >
+      <div className={classes['header-layout']} >
         <div className='text-2xl font-bold' > 
           <a href='/' > 
-            <span className='text-orange-300' > 
-              Jelly 
-            </span>
-            <span className='text-orange-500' > 
-              Coin 
-            </span>
+            <Button  />
           </a>
         </div>
         <div className='flex gap-3 items-center' > 

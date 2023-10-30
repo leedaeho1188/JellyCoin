@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 import { Header } from "./Header";
 import { BottomNav } from "./BottomNav";
+import classes from './layout.module.scss';
 
 export const Layout = ({ children }: {children: ReactNode}) => {
 
   return (
-    <div className='max-w-3xl bg-white mx-auto h-screen relative overflow-hidden'>
+    <div className={classes['layout-container']}>
       <Header/>
-      <div className='pt-14' >
+      <div className='pt-14 relative w-full h-full' >
         {children}
       </div>
       <BottomNav/>

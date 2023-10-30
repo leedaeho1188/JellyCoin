@@ -8,7 +8,9 @@ import { useEffect } from "react";
 
 import '../styles/globals.css';
 import { getFirestore } from "firebase/firestore";
-import { Layout } from "@/components/common/Layout";
+import { Layout } from "@/components/common/layout/Layout";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { amber, brown, orange } from "@mui/material/colors";
 
 
 
@@ -22,12 +24,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     getFirestore(app);
   }, [])
 
+  const defaultTheme = createTheme({
+    palette: {
+      primary: amber,
+      secondary: brown
+    }
+  });
+
   return (
-    <>
+    <ThemeProvider theme={defaultTheme}  >
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </>
+    </ThemeProvider>
   )
 }
 

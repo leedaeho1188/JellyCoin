@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+const path = require('path');
+
 const nextConfig = {
   env: {
     KAKAO_REST_API_KEY: process.env.NEXT_KAKAO_REST_API_KEY,
@@ -13,6 +16,9 @@ const nextConfig = {
   },
   images: {
     domains: ['k.kakaocdn.net'],
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
   webpack(config){
     config.module.rules.push({
