@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import '../styles/globals.css';
 import { getFirestore } from "firebase/firestore";
 import { Layout } from "@/components/common/layout/Layout";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { amber, brown, orange } from "@mui/material/colors";
 
 
@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={defaultTheme}  >
+      <CssBaseline/>
       <Layout>
         <Component {...pageProps} />
       </Layout>

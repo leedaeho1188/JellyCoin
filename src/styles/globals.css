@@ -51,6 +51,7 @@ menu, nav, section, hgroup, article, header, aside, footer {
     border: 0;
     color: rgba(0, 0, 0, 0.87);
     cursor: default;
+    box-sizing: border-box;
   
 }
 
