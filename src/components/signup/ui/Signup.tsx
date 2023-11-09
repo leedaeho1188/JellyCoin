@@ -43,16 +43,12 @@ export const Signup = () => {
       <Box>
         {profileImage
           ? <Avatar alt='profile-img' src={profileImage.objectUrl} sx={{width:'50px', height:'50px'}} />
-          : <Button sx={{
-              borderRadius:'50px',
-              width:'50px',
-              height: '50px',
-              fontSize: '30px',
-              border: 'dashed 1px'
-            }} >
+          : <div>
+
               +
               <input type='file' className={classes['visually-hidden-input']} />
-            </Button>
+            </div>
+            
         }
       </Box>
     </Container>
