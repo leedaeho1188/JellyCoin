@@ -10,10 +10,13 @@ export interface ImageFile {
   objectUrl: string;
 }
 
+export type Role = 'student' | 'teacher'; 
+
 export const useSignUp = () => {
 
   const [profileImage, setProfileImage] = useState<ImageFile>();
   const [name, setName] = useState<string>('');
+  const [role, setRole] = useState<Role>('student');
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -37,10 +40,14 @@ export const useSignUp = () => {
     postUser(name, url);
   }
 
+  
+
   return {
     onChangeFiles,
     profileImage,
     name,
+    role,
+    setRole,
     onChangeName,
     onSignUp
   }

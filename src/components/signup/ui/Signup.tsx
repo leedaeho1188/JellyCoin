@@ -1,6 +1,5 @@
-import { Avatar, Box, Button, Container } from "@mui/material";
+import { Avatar, Box, Button, ButtonGroup, Container, FormControl, FormHelperText, Input, InputLabel, MenuItem, Select, Typography, styled } from "@mui/material";
 import { useSignUp } from "../hooks/useSignUp";
-import classes from './signup.module.scss';
 
 
 
@@ -11,46 +10,147 @@ export const Signup = () => {
     profileImage,
     onSignUp,
     name,
+    role,
+    setRole,
     onChangeName
   } = useSignUp();
 
 
   return (
-    // <div className="flex flex-col gap-8 px-3 py-3" >
-    //   <div className="w-fit flex items-center gap-4" >
-    //     <label htmlFor='imageFile' >
-    //       {profileImage 
-    //         ? <img className='w-32 h-32 cursor-pointer' src={profileImage.objectUrl} />
-    //         : <div className='w-32 h-32 rounded flex justify-center items-center cursor-pointer border-dotted border-2 border-orange-300'>
-    //             Upload Image
-    //           </div>
-    //       }
-    //     </label>
-    //     <input multiple={false}  accept=".jpg, .jpeg, .png, .heic" onChange={onChangeFiles} className="hidden" type='file' id='imageFile' name='imageFile' />
-    //     <p>* 프로필 사진을 업로드해주세요</p>
-    //   </div>
-
-    //   <div className="flex flex-col gap-1" >
-    //     <label className='text-sm' htmlFor="name">이름</label>
-    //     <input onChange={onChangeName} placeholder="이름을 입력해주세요." value={name} className='outline-none border-b-orange-300 border-b-2 border-solid text-lg px-1 py-1' type="text" id="name" name="name" />
-    //   </div>
-
-    //   <div className='cursor-pointer bg-orange-200 px-3 py-2 w-fit rounded self-end text-lg' onClick={onSignUp} > 
-    //     회원가입 
-    //   </div>
-    // </div>
-    <Container component='main' sx={{display:'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', height: '100%'}} >
-      <Box>
+    <Container 
+      component='main' 
+      sx={{
+        display:'flex', 
+        flexDirection: 'column', 
+        width: '100%', 
+        height: '100%',
+        gap: '20px'
+      }} >
+      {/* 프로필 사진 */}
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '16px',
+          alignItems:'center'
+        }}
+      >
         {profileImage
-          ? <Avatar alt='profile-img' src={profileImage.objectUrl} sx={{width:'50px', height:'50px'}} />
-          : <div>
-
+          ? <Button
+              component='label'
+              sx={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%'
+              }}
+            >
+              <Avatar 
+                alt='profile-img' 
+                src={profileImage.objectUrl} 
+                sx={{
+                  width:'100px', 
+                  height:'100px',
+                  boxShadow: '1px 2px 4px 0px rgba(0, 0, 0, 0.75)',
+                }} 
+              />
+              <VisuallyHiddenInput
+                type='file' 
+                multiple={false}
+                accept=".jpg, .jpeg, .png, .heic" 
+                onChange={onChangeFiles}
+              />
+            </Button>
+          : <Button   
+              component='label' 
+              sx={{
+                width: '100px',
+                height: '100px',
+                border: 'dashed 2px',
+                fontSize: '30px',
+                fontWeight: 'bold',
+                borderRadius: '50%'
+              }} 
+            >
               +
-              <input type='file' className={classes['visually-hidden-input']} />
-            </div>
-            
+              <VisuallyHiddenInput 
+                type='file' 
+                multiple={false}
+                accept=".jpg, .jpeg, .png, .heic" 
+                onChange={onChangeFiles}
+              />
+            </Button>
         }
+        <Typography>* 프로필 사진을 선택해주세요.</Typography>
+      </Box>
+      {/* 이름 */}
+      <Box>
+        <FormControl fullWidth >
+          <InputLabel htmlFor='username-input' >이름</InputLabel>
+          <Input id='username-input' placeholder="이름을 작성해주세요." />
+        </FormControl>
+      </Box>
+      {/* 역할 */}
+      <Box>
+        <ButtonGroup>
+          <Button 
+            variant={role === 'student' ? 'contained' : 'outlined'} 
+            onClick={() => setRole('student')}
+          >
+            학생
+          </Button>
+          <Button 
+            variant={role === 'teacher' ? 'contained' : 'outlined'} 
+            onClick={() => setRole('teacher')}
+          >
+            선생님
+          </Button>
+        </ButtonGroup>
+      </Box>
+
+  {/*  */}
+  {role === 'student'
+    ? <Box>
+        <FormControl fullWidth >
+          <InputLabel id='group-select-id' >그룹</InputLabel>
+          <Select
+            labelId="group-select-id"
+            value={''}
+            onChange={() => {}}
+            label='그룹'
+          >
+            <MenuItem value="" >
+              <em>없음</em>
+            </MenuItem>
+            <MenuItem value="구갈 화평교회" >구갈 화평교회</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+    : <Box>
+        <FormControl fullWidth>
+          <InputLabel htmlFor='group-code-input-id'>그룹 코드</InputLabel>
+          <Input id='group-code-input-id' placeholder="그룹 인증코드를 작성해주세요." />
+        </FormControl>
+      </Box>
+  }
+
+      {/* 회원가입 버튼 */}
+      <Box sx={{alignSelf: 'flex-end'}} >
+        <Button variant="contained" onClick={onSignUp} >
+          회원가입
+        </Button>
       </Box>
     </Container>
   )
 }
+
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
