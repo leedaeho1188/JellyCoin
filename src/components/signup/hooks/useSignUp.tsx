@@ -37,7 +37,7 @@ export const useSignUp = () => {
   
   const onSignUp = async () => {
     const url = profileImage ? await uploadImage(profileImage) : null;
-    postUser(name, url);
+    // postUser(name, url);
   }
 
   

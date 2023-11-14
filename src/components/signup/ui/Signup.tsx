@@ -1,8 +1,14 @@
-import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select } from "@mui/material";
-import { useSignUp } from "../hooks/useSignUp";
+import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Role, useSignUp } from "../hooks/useSignUp";
 import { ProfileImgSignUp } from "./ProfileImgSignUp";
+import { RoleStudent, SelectGroup } from "./RoleStudent";
+import { RoleTeacher } from "./RoleTeacher";
 
 
+const roles:{name:string, value:Role}[] = [
+  {name: '학생', value: 'student'},
+  {name: '선생님', value: 'teacher'}
+]
 
 export const Signup = () => {
 
@@ -25,7 +31,7 @@ export const Signup = () => {
         flexDirection: 'column', 
         width: '100%', 
         height: '100%',
-        gap: '20px'
+        gap: '24px'
       }} >
       <ProfileImgSignUp
         profileImage={profileImage}
@@ -34,53 +40,36 @@ export const Signup = () => {
       {/* 이름 */}
       <Box>
         <FormControl fullWidth >
-          <InputLabel htmlFor='username-input' >이름</InputLabel>
-          <Input id='username-input' placeholder="이름을 작성해주세요." />
+          <TextField label='이름' placeholder="이름을 작성해주세요." variant='filled' />
         </FormControl>
-      </Box>
-      {/* 역할 */}
-      <Box>
-        <ButtonGroup>
-          <Button 
-            variant={role === 'student' ? 'contained' : 'outlined'} 
-            onClick={() => setRole('student')}
-          >
-            학생
-          </Button>
-          <Button 
-            variant={role === 'teacher' ? 'contained' : 'outlined'} 
-            onClick={() => setRole('teacher')}
-          >
-            선생님
-          </Button>
-        </ButtonGroup>
       </Box>
 
-  {/*  */}
-  {role === 'student'
-    ? <Box>
-        <FormControl fullWidth >
-          <InputLabel id='group-select-id' >그룹</InputLabel>
-          <Select
-            labelId="group-select-id"
-            value={''}
-            onChange={() => {}}
-            label='그룹'
+  <Box sx={{
+    display:'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  }} >
+    {/* 역할 */}
+    <Box>
+      <ButtonGroup>
+        {roles.map(({name, value}) => 
+          <Button
+            variant={role === value ? 'contained' : 'outlined'}
+            onClick={() => setRole(value)}
           >
-            <MenuItem value="" >
-              <em>없음</em>
-            </MenuItem>
-            <MenuItem value="구갈 화평교회" >구갈 화평교회</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-    : <Box>
-        <FormControl fullWidth>
-          <InputLabel htmlFor='group-code-input-id'>그룹 코드</InputLabel>
-          <Input id='group-code-input-id' placeholder="그룹 인증코드를 작성해주세요." />
-        </FormControl>
-      </Box>
-  }
+            {name}
+          </Button>
+        )}
+      </ButtonGroup>
+    </Box>
+
+    {/*  */}
+    {role === 'student'
+      ? <RoleStudent/>
+      : <RoleTeacher/>
+    }
+  </Box>
+
 
       {/* 회원가입 버튼 */}
       <Box sx={{alignSelf: 'flex-end'}} >
