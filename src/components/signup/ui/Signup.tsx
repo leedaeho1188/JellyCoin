@@ -1,5 +1,6 @@
-import { Avatar, Box, Button, ButtonGroup, Container, FormControl, FormHelperText, Input, InputLabel, MenuItem, Select, Typography, styled } from "@mui/material";
+import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select } from "@mui/material";
 import { useSignUp } from "../hooks/useSignUp";
+import { ProfileImgSignUp } from "./ProfileImgSignUp";
 
 
 
@@ -26,61 +27,10 @@ export const Signup = () => {
         height: '100%',
         gap: '20px'
       }} >
-      {/* 프로필 사진 */}
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '16px',
-          alignItems:'center'
-        }}
-      >
-        {profileImage
-          ? <Button
-              component='label'
-              sx={{
-                width: '100px',
-                height: '100px',
-                borderRadius: '50%'
-              }}
-            >
-              <Avatar 
-                alt='profile-img' 
-                src={profileImage.objectUrl} 
-                sx={{
-                  width:'100px', 
-                  height:'100px',
-                  boxShadow: '1px 2px 4px 0px rgba(0, 0, 0, 0.75)',
-                }} 
-              />
-              <VisuallyHiddenInput
-                type='file' 
-                multiple={false}
-                accept=".jpg, .jpeg, .png, .heic" 
-                onChange={onChangeFiles}
-              />
-            </Button>
-          : <Button   
-              component='label' 
-              sx={{
-                width: '100px',
-                height: '100px',
-                border: 'dashed 2px',
-                fontSize: '30px',
-                fontWeight: 'bold',
-                borderRadius: '50%'
-              }} 
-            >
-              +
-              <VisuallyHiddenInput 
-                type='file' 
-                multiple={false}
-                accept=".jpg, .jpeg, .png, .heic" 
-                onChange={onChangeFiles}
-              />
-            </Button>
-        }
-        <Typography>* 프로필 사진을 선택해주세요.</Typography>
-      </Box>
+      <ProfileImgSignUp
+        profileImage={profileImage}
+        onChangeFiles={onChangeFiles}
+      />
       {/* 이름 */}
       <Box>
         <FormControl fullWidth >
@@ -141,16 +91,3 @@ export const Signup = () => {
     </Container>
   )
 }
-
-
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
