@@ -1,5 +1,6 @@
 import { Box, Button, FormControl, TextField } from "@mui/material"
 import { useState } from "react"
+import { CreateGroup } from ".";
 
 
 export const RoleTeacher = () => {
@@ -9,17 +10,20 @@ export const RoleTeacher = () => {
   return (
     <Box>
       {isNewGroup 
-        ? <Box>
-            
-          </Box>
-        :  <Box sx={{
+        ? <CreateGroup
+            toggleNewGroup={toggleNewGroup}
+          />
+        : <Box sx={{
             display:'flex',
             flexDirection:'column',
             gap: '12px'
           }} >
-            <FormControl fullWidth>
-              <TextField label='그룹 코드' variant='filled' placeholder="그룹 인증 코드를 작성해주세요." />
-            </FormControl>
+            <TextField 
+              fullWidth
+              label='그룹코드' 
+              variant='standard' 
+              placeholder="그룹 인증코드를 작성해주세요." 
+            />
             <Button
               sx={{alignSelf: 'flex-end'}}
               onClick={() => toggleNewGroup(true)}

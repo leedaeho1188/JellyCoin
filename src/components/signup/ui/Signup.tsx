@@ -1,8 +1,6 @@
 import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { Role, useSignUp } from "../hooks/useSignUp";
-import { ProfileImgSignUp } from "./ProfileImgSignUp";
-import { RoleStudent, SelectGroup } from "./RoleStudent";
-import { RoleTeacher } from "./RoleTeacher";
+import { ProfileImgSignUp, RoleStudent, RoleTeacher } from ".";
 
 
 const roles:{name:string, value:Role}[] = [
@@ -39,37 +37,39 @@ export const Signup = () => {
       />
       {/* 이름 */}
       <Box>
-        <FormControl fullWidth >
-          <TextField label='이름' placeholder="이름을 작성해주세요." variant='filled' />
-        </FormControl>
+        <TextField 
+          fullWidth 
+          label='이름' 
+          placeholder="이름을 작성해주세요." 
+          variant='standard' 
+        />
       </Box>
 
-  <Box sx={{
-    display:'flex',
-    flexDirection: 'column',
-    gap: '12px'
-  }} >
-    {/* 역할 */}
-    <Box>
-      <ButtonGroup>
-        {roles.map(({name, value}) => 
-          <Button
-            variant={role === value ? 'contained' : 'outlined'}
-            onClick={() => setRole(value)}
-          >
-            {name}
-          </Button>
-        )}
-      </ButtonGroup>
-    </Box>
+      <Box sx={{
+        display:'flex',
+        flexDirection: 'column',
+        gap: '12px'
+      }} >
+        {/* 역할 */}
+        <Box>
+          <ButtonGroup>
+            {roles.map(({name, value}) => 
+              <Button
+                variant={role === value ? 'contained' : 'outlined'}
+                onClick={() => setRole(value)}
+              >
+                {name}
+              </Button>
+            )}
+          </ButtonGroup>
+        </Box>
 
-    {/*  */}
-    {role === 'student'
-      ? <RoleStudent/>
-      : <RoleTeacher/>
-    }
-  </Box>
-
+        {/*  */}
+        {role === 'student'
+          ? <RoleStudent/>
+          : <RoleTeacher/>
+        }
+      </Box>
 
       {/* 회원가입 버튼 */}
       <Box sx={{alignSelf: 'flex-end'}} >
