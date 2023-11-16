@@ -6,7 +6,7 @@ interface Props {
   toggleNewGroup: Dispatch<SetStateAction<boolean>>
 }
 
-export const CreateGroup = ({
+export const RTCreateGroup = ({
   toggleNewGroup
 }:Props) => {
 
@@ -29,6 +29,7 @@ export const CreateGroup = ({
         fullWidth
         label='주소'
         variant='standard'
+        onClick={() => console.log('click TextField!!')}
       />
       <TextField
         fullWidth

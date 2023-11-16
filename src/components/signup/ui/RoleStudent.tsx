@@ -5,7 +5,7 @@ export const RoleStudent = () => {
   
   return (
     <Box>
-      <FormControl fullWidth variant='filled' >
+      <FormControl fullWidth variant='standard' >
         <InputLabel id='group-select-id' >그룹</InputLabel>
         <Select
           labelId="group-select-id"

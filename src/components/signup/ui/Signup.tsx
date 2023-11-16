@@ -1,6 +1,7 @@
 import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { Role, useSignUp } from "../hooks/useSignUp";
 import { ProfileImgSignUp, RoleStudent, RoleTeacher } from ".";
+import Script from "next/script";
 
 
 const roles:{name:string, value:Role}[] = [
@@ -22,61 +23,64 @@ export const Signup = () => {
 
 
   return (
-    <Container 
-      component='main' 
-      sx={{
-        display:'flex', 
-        flexDirection: 'column', 
-        width: '100%', 
-        height: '100%',
-        gap: '24px'
-      }} >
-      <ProfileImgSignUp
-        profileImage={profileImage}
-        onChangeFiles={onChangeFiles}
-      />
-      {/* 이름 */}
-      <Box>
-        <TextField 
-          fullWidth 
-          label='이름' 
-          placeholder="이름을 작성해주세요." 
-          variant='standard' 
+    <>
+      <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" />
+      <Container 
+        component='main' 
+        sx={{
+          display:'flex', 
+          flexDirection: 'column', 
+          width: '100%', 
+          height: '100%',
+          gap: '24px'
+        }} >
+        <ProfileImgSignUp
+          profileImage={profileImage}
+          onChangeFiles={onChangeFiles}
         />
-      </Box>
-
-      <Box sx={{
-        display:'flex',
-        flexDirection: 'column',
-        gap: '12px'
-      }} >
-        {/* 역할 */}
+        {/* 이름 */}
         <Box>
-          <ButtonGroup>
-            {roles.map(({name, value}) => 
-              <Button
-                variant={role === value ? 'contained' : 'outlined'}
-                onClick={() => setRole(value)}
-              >
-                {name}
-              </Button>
-            )}
-          </ButtonGroup>
+          <TextField 
+            fullWidth 
+            label='이름' 
+            placeholder="이름을 작성해주세요." 
+            variant='standard' 
+          />
         </Box>
 
-        {/*  */}
-        {role === 'student'
-          ? <RoleStudent/>
-          : <RoleTeacher/>
-        }
-      </Box>
+        <Box sx={{
+          display:'flex',
+          flexDirection: 'column',
+          gap: '12px'
+        }} >
+          {/* 역할 */}
+          <Box>
+            <ButtonGroup>
+              {roles.map(({name, value}) => 
+                <Button
+                  variant={role === value ? 'contained' : 'outlined'}
+                  onClick={() => setRole(value)}
+                >
+                  {name}
+                </Button>
+              )}
+            </ButtonGroup>
+          </Box>
 
-      {/* 회원가입 버튼 */}
-      <Box sx={{alignSelf: 'flex-end'}} >
-        <Button variant="contained" onClick={onSignUp} >
-          회원가입
-        </Button>
-      </Box>
-    </Container>
+          {/*  */}
+          {role === 'student'
+            ? <RoleStudent/>
+            : <RoleTeacher/>
+          }
+        </Box>
+
+        {/* 회원가입 버튼 */}
+        <Box sx={{alignSelf: 'flex-end'}} >
+          <Button variant="contained" onClick={onSignUp} >
+            회원가입
+          </Button>
+        </Box>
+      </Container>
+    </>
   )
 }
