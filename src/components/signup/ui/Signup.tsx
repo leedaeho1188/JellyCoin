@@ -1,13 +1,6 @@
 import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { Role, useSignUp } from "../hooks/useSignUp";
-import { ProfileImgSignUp, RoleStudent, RoleTeacher } from ".";
-import Script from "next/script";
-
-
-const roles:{name:string, value:Role}[] = [
-  {name: '학생', value: 'student'},
-  {name: '선생님', value: 'teacher'}
-]
+import { ProfileImgSignUp, RoleStudent, RoleTeacher, SelectRole } from ".";
 
 export const Signup = () => {
 
@@ -15,7 +8,7 @@ export const Signup = () => {
     onChangeFiles,
     profileImage,
     onSignUp,
-    name,
+    username,
     role,
     setRole,
     onChangeName
@@ -42,7 +35,9 @@ export const Signup = () => {
           fullWidth 
           label='이름' 
           placeholder="이름을 작성해주세요." 
-          variant='standard' 
+          variant='standard'
+          value={username}
+          onChange={onChangeName}
         />
       </Box>
 
@@ -52,19 +47,10 @@ export const Signup = () => {
         gap: '12px'
       }} >
         {/* 역할 */}
-        <Box>
-          <ButtonGroup>
-            {roles.map(({name, value}) => 
-              <Button
-                key={`role-button-${name}-${value}`}
-                variant={role === value ? 'contained' : 'outlined'}
-                onClick={() => setRole(value)}
-              >
-                {name}
-              </Button>
-            )}
-          </ButtonGroup>
-        </Box>
+        <SelectRole
+          role={role}
+          setRole={setRole}
+        />
 
         {/*  */}
         {role === 'student'

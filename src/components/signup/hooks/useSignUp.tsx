@@ -15,11 +15,11 @@ export type Role = 'student' | 'teacher';
 export const useSignUp = () => {
 
   const [profileImage, setProfileImage] = useState<ImageFile>();
-  const [name, setName] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [role, setRole] = useState<Role>('student');
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+    setUsername(e.target.value);
   }
 
   const onChangeFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ export const useSignUp = () => {
   return {
     onChangeFiles,
     profileImage,
-    name,
+    username,
     role,
     setRole,
     onChangeName,
