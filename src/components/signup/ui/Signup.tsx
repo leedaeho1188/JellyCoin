@@ -23,64 +23,62 @@ export const Signup = () => {
 
 
   return (
-    <>
-      <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" />
-      <Container 
-        component='main' 
-        sx={{
-          display:'flex', 
-          flexDirection: 'column', 
-          width: '100%', 
-          height: '100%',
-          gap: '24px'
-        }} >
-        <ProfileImgSignUp
-          profileImage={profileImage}
-          onChangeFiles={onChangeFiles}
+    <Container 
+      component='main' 
+      sx={{
+        display:'flex', 
+        flexDirection: 'column', 
+        width: '100%', 
+        height: '100%',
+        gap: '24px'
+      }} >
+      <ProfileImgSignUp
+        profileImage={profileImage}
+        onChangeFiles={onChangeFiles}
+      />
+      {/* 이름 */}
+      <Box>
+        <TextField 
+          fullWidth 
+          label='이름' 
+          placeholder="이름을 작성해주세요." 
+          variant='standard' 
         />
-        {/* 이름 */}
+      </Box>
+
+      <Box sx={{
+        display:'flex',
+        flexDirection: 'column',
+        gap: '12px'
+      }} >
+        {/* 역할 */}
         <Box>
-          <TextField 
-            fullWidth 
-            label='이름' 
-            placeholder="이름을 작성해주세요." 
-            variant='standard' 
-          />
+          <ButtonGroup>
+            {roles.map(({name, value}) => 
+              <Button
+                key={`role-button-${name}-${value}`}
+                variant={role === value ? 'contained' : 'outlined'}
+                onClick={() => setRole(value)}
+              >
+                {name}
+              </Button>
+            )}
+          </ButtonGroup>
         </Box>
 
-        <Box sx={{
-          display:'flex',
-          flexDirection: 'column',
-          gap: '12px'
-        }} >
-          {/* 역할 */}
-          <Box>
-            <ButtonGroup>
-              {roles.map(({name, value}) => 
-                <Button
-                  variant={role === value ? 'contained' : 'outlined'}
-                  onClick={() => setRole(value)}
-                >
-                  {name}
-                </Button>
-              )}
-            </ButtonGroup>
-          </Box>
+        {/*  */}
+        {role === 'student'
+          ? <RoleStudent/>
+          : <RoleTeacher/>
+        }
+      </Box>
 
-          {/*  */}
-          {role === 'student'
-            ? <RoleStudent/>
-            : <RoleTeacher/>
-          }
-        </Box>
-
-        {/* 회원가입 버튼 */}
-        <Box sx={{alignSelf: 'flex-end'}} >
-          <Button variant="contained" onClick={onSignUp} >
-            회원가입
-          </Button>
-        </Box>
-      </Container>
-    </>
+      {/* 회원가입 버튼 */}
+      <Box sx={{alignSelf: 'flex-end'}} >
+        <Button variant="contained" onClick={onSignUp} >
+          회원가입
+        </Button>
+      </Box>
+    </Container>
   )
 }
