@@ -16,6 +16,7 @@ export const TextareaAutosize = styled(BaseTextareaAutosize)(
   background: #fff;
   border: 1px solid ${grey[500]};
   box-shadow: 0px 2px 2px ${grey[50]};
+  resize:none;
 
   &:hover {
     border: 2px solid ${grey[900]};

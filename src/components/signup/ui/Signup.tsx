@@ -1,17 +1,18 @@
-import { Box, Button, ButtonGroup, Container, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { Role, useSignUp } from "../hooks/useSignUp";
+import { Box, Button, Container, TextField } from "@mui/material";
+import { useSignUp } from "../hooks/useSignUp";
 import { ProfileImgSignUp, RoleStudent, RoleTeacher, SelectRole } from ".";
 
 export const Signup = () => {
 
   const {
-    onChangeFiles,
-    profileImage,
-    onSignUp,
-    username,
     role,
+    profileImage,
+    buttonState,
+
+    register,
     setRole,
-    onChangeName
+    onChangeFiles,
+    onSignUp,
   } = useSignUp();
 
 
@@ -32,27 +33,32 @@ export const Signup = () => {
       {/* 이름 */}
       <Box>
         <TextField 
+          {...register('username')}
           fullWidth 
           label='이름' 
           placeholder="이름을 작성해주세요." 
           variant='standard'
-          value={username}
-          onChange={onChangeName}
         />
       </Box>
-
+      {/* 닉네임 */}
+      <Box>
+        <TextField 
+          {...register('nickname')}
+          fullWidth 
+          label='닉네임' 
+          placeholder="닉네임을 작성해주세요." 
+          variant='standard'
+        />
+      </Box>
       <Box sx={{
         display:'flex',
         flexDirection: 'column',
         gap: '12px'
       }} >
-        {/* 역할 */}
         <SelectRole
           role={role}
           setRole={setRole}
         />
-
-        {/*  */}
         {role === 'student'
           ? <RoleStudent/>
           : <RoleTeacher/>
@@ -61,7 +67,11 @@ export const Signup = () => {
 
       {/* 회원가입 버튼 */}
       <Box sx={{alignSelf: 'flex-end'}} >
-        <Button variant="contained" onClick={onSignUp} >
+        <Button 
+          variant="contained" 
+          onClick={onSignUp}
+          disabled={buttonState === 'disabled'} 
+        >
           회원가입
         </Button>
       </Box>

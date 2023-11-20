@@ -28,7 +28,11 @@ export const RTCreateGroup = ({
         variant='standard'
         placeholder="그룹이름을 작성해주세요."
       />
-      <TextareaAutosize minRows={3} placeholder="그룹에 대해서 설명해주세요." />
+      <TextareaAutosize 
+        minRows={3}
+        maxRows={4} 
+        placeholder="그룹에 대해서 설명해주세요." 
+      />
       <TextField
         fullWidth
         label='주소'
