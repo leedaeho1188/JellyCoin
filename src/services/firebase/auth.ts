@@ -14,7 +14,7 @@ export const signInFirebaseAuth = async(email:string, password: string) => {
       if(errorMessage === 'Firebase: Error (auth/user-not-found).'){
         // signUpFirebaseAuth(email, password);
         //DESCRIBE: 유저 정보가 없을시에 signup 페이지로 이동
-        window.location.href = '/signup';
+        window.location.href = '/sign-up';
       }
     })
 }

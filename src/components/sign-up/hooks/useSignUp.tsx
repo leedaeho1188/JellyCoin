@@ -1,7 +1,7 @@
 import { convertHeicToJpg } from "@/utils/convertHeicToJpg";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { uploadImage } from "@/services/firebase/storage";
-import { ImageFile, Role } from "../types";
+import { ImageFile } from "../types";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,7 +15,6 @@ interface FormValues {
 export const useSignUp = () => {
 
   const [profileImage, setProfileImage] = useState<ImageFile>();
-  const [role, setRole] = useState<Role>('student');
 
   const schema = yup
     .object()
@@ -94,12 +93,10 @@ export const useSignUp = () => {
   
 
   return {
-    role,
     profileImage,
     buttonState,
 
     onChangeFiles,
-    setRole,
     onSignUp,
     register,
   }

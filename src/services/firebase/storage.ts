@@ -1,4 +1,4 @@
-import { ImageFile } from "@/components/signup/hooks/useSignUp";
+import { ImageFile } from "@/components/sign-up/hooks/useSignUp";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { postUser } from "./firestore";
 
