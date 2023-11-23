@@ -31,7 +31,7 @@ export interface userNicknameForm {
 }
 
 export interface SignUpForm {
-  profileImg: ImageFile;
+  profileImg?: ImageFile;
   roleForm: RoleForm;
   userNicknameForm: userNicknameForm;
 }

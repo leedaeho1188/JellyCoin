@@ -11,6 +11,8 @@ import { getFirestore } from "firebase/firestore";
 import { Layout } from "@/components/common/layout/Layout";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { amber, brown, orange } from "@mui/material/colors";
+import { RecoilRoot } from "recoil";
+import { DebugObserver } from "@/recoil/DebugObserver";
 
 
 
@@ -32,12 +34,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <ThemeProvider theme={defaultTheme}  >
-      <CssBaseline/>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <RecoilRoot>
+      <DebugObserver/>
+      <ThemeProvider theme={defaultTheme}  >
+        <CssBaseline/>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </RecoilRoot>
   )
 }
 

@@ -2,6 +2,9 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSetRecoilState } from 'recoil';
+import { useSetSignUpState } from '@/recoil/sign-up/atom';
+import useDebounce from '@/hooks/useDebounce';
 
 interface FormValues {
   username: string;
@@ -9,6 +12,9 @@ interface FormValues {
 }
 
 export const useUserNickname = () => {
+
+  const setSignUpState = useSetSignUpState(); 
+
   const schema = yup
     .object()
     .shape({
@@ -36,6 +42,18 @@ export const useUserNickname = () => {
       nickname: '',
     }
   });
+
+  const registerUserNickname = () => {
+    const { username, nickname } = watch();
+    setSignUpState((prev) => ({
+      ...prev,
+      username,
+      nickname
+    }));
+  };
+
+  useDebounce(registerUserNickname, 500);
+
 
   return {
     register,
