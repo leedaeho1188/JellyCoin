@@ -2,47 +2,22 @@ import { convertHeicToJpg } from "@/utils/convertHeicToJpg";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { uploadImage } from "@/services/firebase/storage";
 import { ImageFile } from "../types";
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSignUpState } from "@/recoil/sign-up/atom";
 
 type BtnState = 'disabled' | 'enable';
-interface FormValues {
-  username: string;
-  nickname: string;
-}
 
 export const useSignUp = () => {
 
   const [profileImage, setProfileImage] = useState<ImageFile>();
 
-  const schema = yup
-    .object()
-    .shape({
-      username: yup
-        .string()
-        .required('이름을 입력해주세요.')
-        .max(10, '이름은 10자 이내로 작성해주세요.'),
-      nickname: yup
-        .string()
-        .required('닉네임을 입력해주세요.')
-        .max(10, '닉네임은 10자 이내로 작성해주세요.')
-    });
+  const [signUpState, setSignUpState] = useSignUpState();
 
-  const {
-    register,
-    setValue,
-    setError,
-    watch,
-    formState: { errors }
-  } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-    mode: 'onChange',
-    defaultValues: {
-      username:'',
-      nickname:'',
-    }
-  });
+  useEffect(() => {
+    console.log(signUpState, 'signUpState');
+  }, [signUpState])
 
   
 
@@ -55,13 +30,13 @@ export const useSignUp = () => {
    * 5. role이 student일 경우 그룹id가 있어야 한다.
    */
   const buttonState:BtnState = useMemo(() => {
-    if(errors.username) return 'disabled';
-    if(errors.nickname) return 'disabled';
+    if(!signUpState.roleForm.isRoleFormValid) return 'disabled';
+    if(!signUpState.userNicknameForm.isUserNicknameValid) return 'disabled';
     
     return 'enable'
   }, [
-    errors.nickname, 
-    errors.username
+    signUpState.roleForm.isRoleFormValid,
+    signUpState.userNicknameForm.isUserNicknameValid,
   ])
   
   const onChangeFiles = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +48,10 @@ export const useSignUp = () => {
         file: convertedFile,
         objectUrl: URL.createObjectURL(convertedFile)
       }
-      setProfileImage(image);
+      setSignUpState((prev) => ({
+        ...prev,
+        profileImg: image,
+      }));
     }
   }, []);
 
@@ -93,12 +71,11 @@ export const useSignUp = () => {
   
 
   return {
-    profileImage,
+    profileImage: signUpState.profileImg,
     buttonState,
 
     onChangeFiles,
     onSignUp,
-    register,
   }
 
 }

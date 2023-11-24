@@ -27,7 +27,7 @@ export interface newGroupForm {
 export interface userNicknameForm {
   username: string;
   nickname: string;
-  isNicknameValid: boolean;
+  isUserNicknameValid: boolean;
 }
 
 export interface SignUpForm {

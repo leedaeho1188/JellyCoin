@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSetRecoilState } from 'recoil';
 import { useSetSignUpState } from '@/recoil/sign-up/atom';
 import useDebounce from '@/hooks/useDebounce';
+import { useEffect } from 'react';
 
 interface FormValues {
   username: string;
@@ -42,17 +43,35 @@ export const useUserNickname = () => {
       nickname: '',
     }
   });
-
-  const registerUserNickname = () => {
-    const { username, nickname } = watch();
+  const { username, nickname } = watch();
+  
+  useEffect(() => {
     setSignUpState((prev) => ({
       ...prev,
-      username,
-      nickname
+      userNicknameForm: {
+        ...prev.userNicknameForm,
+        username,
+        nickname,
+      }
     }));
-  };
+  }, [username, nickname])
 
-  useDebounce(registerUserNickname, 500);
+  useEffect(() => {
+    if(errors.nickname || errors.username) setSignUpState((prev) => ({
+      ...prev,
+      userNicknameForm: {
+        ...prev.userNicknameForm,
+        isUserNicknameValid: false,
+      }
+    }));
+    else setSignUpState((prev) => ({
+      ...prev,
+      userNicknameForm: {
+        ...prev.userNicknameForm,
+        isUserNicknameValid: true,
+      }
+    }));
+  }, [errors])
 
 
   return {

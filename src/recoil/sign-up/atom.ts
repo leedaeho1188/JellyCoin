@@ -13,7 +13,7 @@ export const singUpState = atom<SignUpForm>({
     userNicknameForm: {
       username: '',
       nickname: '',
-      isNicknameValid: false,
+      isUserNicknameValid: false,
     }
   }
 })

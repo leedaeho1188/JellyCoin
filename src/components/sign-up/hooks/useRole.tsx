@@ -1,13 +1,24 @@
-import { useState } from "react";
 import { RoleUnion } from "../types";
+import { useSignUpState } from "@/recoil/sign-up/atom";
 
 
 export const useRole = () => {
+  const [signUpState, setSignUpState] = useSignUpState();
 
-  const [role, setRole] = useState<RoleUnion>('student');
+  const onChangeRole = (role:RoleUnion) => {
+    setSignUpState(() => {
+      return {
+        ...signUpState,
+        roleForm: {
+          ...signUpState.roleForm,
+          role,
+        }
+      }
+    })
+  }
 
   return {
-    role,
-    setRole,
+    role: signUpState.roleForm.role,
+    setRole:onChangeRole,
   }
 }

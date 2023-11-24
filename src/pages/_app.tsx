@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      <DebugObserver/>
+      {/* <DebugObserver/> */}
       <ThemeProvider theme={defaultTheme}  >
         <CssBaseline/>
         <Layout>

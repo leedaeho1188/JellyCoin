@@ -1,11 +1,11 @@
 import { Box, Button, ButtonGroup } from "@mui/material"
-import { Role } from "../hooks/useSignUp"
+import { RoleUnion } from "../types";
 import { Dispatch, SetStateAction } from "react";
 
 
 interface Props {
-  role: Role;
-  setRole: Dispatch<SetStateAction<Role>>;
+  role: RoleUnion;
+  setRole: (role: RoleUnion) => void;
 }
 
 export const SelectRole = ({
@@ -13,7 +13,7 @@ export const SelectRole = ({
   setRole
 }:Props) => {
 
-  const roleArray:{name:string, value:Role}[] = [
+  const roleArray:{name:string, value:RoleUnion}[] = [
     {name: '학생', value: 'student'},
     {name: '선생님', value: 'teacher'}
   ]

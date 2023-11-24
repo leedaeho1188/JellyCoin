@@ -7,8 +7,7 @@ export const Signup = () => {
   const {
     profileImage,
     buttonState,
-
-    register,
+    
     onChangeFiles,
     onSignUp,
   } = useSignUp();
